@@ -1,7 +1,6 @@
 # =============================================================================
 # WiFi Networks
 # =============================================================================
-
 data "unifi_user_group" "default" {
 }
 
@@ -9,10 +8,10 @@ data "unifi_ap_group" "default" {
 }
 
 # -----------------------------------------------------------------------------
-# KapoorHome - Trusted Network (VLAN 10)
+# Main WiFi - Trusted Network (VLAN 10)
 # -----------------------------------------------------------------------------
-resource "unifi_wlan" "kapoorhome" {
-  name          = "KapoorHome"
+resource "unifi_wlan" "trusted" {
+  name          = var.ssid_prefix
   security      = "wpapsk"
   passphrase    = var.wifi_password_trusted
   network_id    = unifi_network.trusted.id
@@ -23,10 +22,10 @@ resource "unifi_wlan" "kapoorhome" {
 }
 
 # -----------------------------------------------------------------------------
-# KapoorHome-IoT - IoT Network (VLAN 30)
+# IoT WiFi - IoT Network (VLAN 30)
 # -----------------------------------------------------------------------------
-resource "unifi_wlan" "kapoorhome_iot" {
-  name          = "KapoorHome-IoT"
+resource "unifi_wlan" "iot" {
+  name          = "${var.ssid_prefix}-IoT"
   security      = "wpapsk"
   passphrase    = var.wifi_password_iot
   network_id    = unifi_network.iot.id
@@ -37,10 +36,10 @@ resource "unifi_wlan" "kapoorhome_iot" {
 }
 
 # -----------------------------------------------------------------------------
-# KapoorHome-Guest - Guest Network (VLAN 50)
+# Guest WiFi - Guest Network (VLAN 50)
 # -----------------------------------------------------------------------------
-resource "unifi_wlan" "kapoorhome_guest" {
-  name          = "KapoorHome-Guest"
+resource "unifi_wlan" "guest" {
+  name          = "${var.ssid_prefix}-Guest"
   security      = "wpapsk"
   passphrase    = var.wifi_password_guest
   network_id    = unifi_network.guest.id

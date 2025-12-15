@@ -37,6 +37,11 @@ variable "domain_name" {
   type        = string
 }
 
+variable "ssid_prefix" {
+  description = "Prefix for WiFi SSID names (e.g., 'MyHome' creates MyHome, MyHome-IoT, MyHome-Guest)"
+  type        = string
+}
+
 # RPI4 MAC address for DHCP reservation
 variable "rpi4_mac_address" {
   description = "MAC address of RPI4 for static DHCP reservation"
