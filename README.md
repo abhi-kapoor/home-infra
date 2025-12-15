@@ -1,38 +1,45 @@
-# Home Infrastructure
+# UniFi Network Configuration
 
-Private infrastructure-as-code repository for Kapoor Home.
-
-> ⚠️ **This repository is private** - contains network configuration and secrets references.
-
-## Structure
-
-```
-home-infra/
-├── terraform/
-│   └── unifi/          # UniFi Dream Router configuration
-│       ├── networks.tf     # VLAN definitions
-│       ├── wifi.tf         # WiFi SSIDs
-│       └── ...
-└── README.md
-```
-
-## Components
-
-### UniFi Network (`terraform/unifi/`)
-
-Manages UniFi Dream Router configuration:
-- VLAN networks (Trusted, Homelab, IoT, Guest)
-- WiFi SSIDs
-- DHCP reservations
-
-See [terraform/unifi/README.md](terraform/unifi/README.md) for setup instructions.
+Infrastructure as Code for UniFi network using [OpenTofu](https://opentofu.org) and the [UniFi provider](https://registry.terraform.io/providers/ubiquiti-community/unifi/latest/docs).
 
 ## Prerequisites
 
 - [OpenTofu](https://opentofu.org) - `brew install opentofu`
-- Access to UniFi console
+- [direnv](https://direnv.net) - `brew install direnv`
+- UniFi Dream Router (or similar UniFi OS device)
 
-## Related Repositories
+### ⚠️ 2FA/MFA Users
 
-- [talos-pi4/homelab](https://github.com/abhi-kapoor/homelab) - Kubernetes manifests (public)
+If you have 2FA enabled on your Ubiquiti account, create a **local admin user** for API access:
+
+1. UniFi Console → **Settings → Admins & Users → Add Admin**
+2. Select **Local Access Only**
+3. Use these credentials in your `.envrc`
+
+## Setup
+
+```bash
+# Configure credentials
+cp .envrc.example .envrc
+# Edit .envrc with your values
+direnv allow
+
+# Deploy
+tofu init
+tofu plan
+tofu apply
+```
+
+## What This Creates
+
+- **VLAN Networks** - Trusted, Homelab, IoT, Guest with separate subnets
+- **WiFi Networks** - SSIDs mapped to VLANs
+- **DHCP Reservations** - Static IPs for infrastructure devices
+
+## Manual Steps
+
+Some features require manual configuration in UniFi Console:
+
+- **Port Assignments** - Assign switch ports to VLANs
+- **Network Isolation** - Enable "Isolate Network" on IoT/Guest networks
 
