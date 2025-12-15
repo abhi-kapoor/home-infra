@@ -1,0 +1,22 @@
+# OpenTofu / Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Secrets - NEVER commit these
+*.tfvars
+!example.tfvars
+.env
+*.pem
+*.key
+
+# OpenTofu specific
+**/.tofu/
+
+# OS
+.DS_Store
+*.swp
+

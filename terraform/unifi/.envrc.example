@@ -1,0 +1,9 @@
+# Copy to .envrc and fill in your values
+# Run: direnv allow
+
+export TF_VAR_unifi_username="admin"
+export TF_VAR_unifi_password="your-password"
+export TF_VAR_unifi_api_url="https://<unifi-ap-url>/"
+export TF_VAR_wifi_password_trusted="trusted-password"
+export TF_VAR_wifi_password_iot="iot-password"
+export TF_VAR_wifi_password_guest="guest-password"
